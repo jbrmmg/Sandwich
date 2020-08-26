@@ -1,0 +1,18 @@
+[
+  {
+    "id":"bread",
+    "selection": "one"
+  },
+  {
+    "id":"spread",
+    "selection": "yesno"
+  },
+  {
+    "id":"filling",
+    "selection": "many"
+  },
+  {
+    "id":"addon",
+    "selection": "many"
+  }
+]

@@ -1,0 +1,47 @@
+[
+  {
+    "id": 1,
+    "name":"brown bread",
+    "type":"bread"
+  },
+  {
+    "id": 2,
+    "name":"white bread",
+    "type":"bread"
+  },
+  {
+    "id": 3,
+    "name":"seeded bread",
+    "type":"bread"
+  },
+  {
+    "id": 4,
+    "name":"bagel",
+    "type":"bread"
+  },
+  {
+    "id": 5,
+    "name":"butter",
+    "type":"spread"
+  },
+  {
+    "id": 6,
+    "name":"ham",
+    "type":"filling"
+  },
+  {
+    "id": 7,
+    "name":"cheese",
+    "type":"filling"
+  },
+  {
+    "id": 8,
+    "name":"tomato",
+    "type":"addon"
+  },
+  {
+    "id": 9,
+    "name":"lettuce",
+    "type":"addon"
+  }
+]

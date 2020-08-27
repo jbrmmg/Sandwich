@@ -1,5 +1,18 @@
 <div class="card">
     <div class="card-body">
-        <p>INGREDIENT TYPE</p>
+        <div *ngIf="ingredientTypes && ingredientTypes.length">
+            <div class="row">
+                <div class="col-6">
+                    <div class="row user-cell" *ngFor="let ingredientType of ingredientTypes; let i = index">
+                        <label>{{ingredientType.id}}</label>
+                    </div>
+                </div>
+                <div class="col-6">
+                    <div class="row user-cell" *ngFor="let ingredientType of ingredientTypes; let i = index">
+                        <label>{{ingredientType.selection}}</label>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </div>

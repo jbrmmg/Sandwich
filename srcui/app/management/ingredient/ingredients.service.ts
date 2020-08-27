@@ -1,6 +1,11 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpErrorResponse} from '@angular/common/http';
-import {throwError} from 'rxjs';
+import {Observable, throwError} from 'rxjs';
+import {IIngredient} from './ingredient';
+import {IIngredientType} from './ingredient.type';
+import {ISetting} from '../settings/setting';
+import {environment} from '../../../environments/environment';
+import {catchError, tap} from 'rxjs/operators';
 
 @Injectable({
     providedIn: 'root'
@@ -24,5 +29,19 @@ export class IngredientsService {
     }
 
     constructor(private readonly _http: HttpClient) {
+    }
+
+    getIngredients(): Observable<IIngredient[]> {
+        return this._http.get<IIngredient[]>(environment.production ? this.INGREDIENT_URL : this.TEST_INGREDIENTS_URL ).pipe(
+            tap(data => console.log('All: ' + JSON.stringify(data))),
+            catchError( err => IngredientsService.handleError(err))
+        );
+    }
+
+    getIngredientTypes(): Observable<IIngredientType[]> {
+        return this._http.get<IIngredientType[]>(environment.production ? this.TYPE_URL : this.TEST_TYPE_URL ).pipe(
+            tap(data => console.log('All: ' + JSON.stringify(data))),
+            catchError( err => IngredientsService.handleError(err))
+        );
     }
 }

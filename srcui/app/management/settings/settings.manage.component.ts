@@ -11,11 +11,11 @@ export class SettingsManageComponent {
 
     constructor(private readonly _settingService: SettingsService) {
         this._settingService.getSettings().subscribe(
-            users => {
-                this.settings = users;
+            settings => {
+                this.settings = settings;
             },
-            error => console.log('Failed to get the users.'),
-            () => console.log('Finished get users.')
+            error => console.log('Failed to get the settings.'),
+            () => console.log('Finished get settings.')
         );
     }
 }

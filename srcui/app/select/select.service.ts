@@ -32,6 +32,16 @@ export class SelectService {
     }
 
     saveSandwich(id: string, day: string, sandwich: SelectSandwich) {
-        return this._http.put<SelectSandwich>( `sandwich?user=${id}&day=${day}`, sandwich);
+        return this._http.put<SelectSandwich>( `sandwich?user=${id}&day=${day}`, sandwich).subscribe(
+            () => {
+                console.log('PUT call successful value returned in body');
+            },
+            (response) => {
+                console.log('POST call in error', response);
+            },
+            () => {
+                console.log('The POST observable is now complete (add)');
+            }
+        );
     }
 }

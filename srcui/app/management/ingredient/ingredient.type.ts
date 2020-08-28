@@ -1,4 +1,5 @@
 export interface IIngredientType {
     id: string;
-    selection: string
+    selection: string;
+    order: number;
 }

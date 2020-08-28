@@ -1,0 +1,81 @@
+{
+  "id": "2",
+  "name": "Test User 2",
+  "email": "test2@jbrmmmg.me.uk",
+  "days": [
+    {
+      "day": "Monday",
+      "month": "August",
+      "date": 31,
+      "sandwich": {
+        "ingredients": [
+          {
+            "id":  1,
+            "name": "brown bread",
+            "type": {
+              "id": "bread",
+              "selection": "one"
+            }
+          },
+          {
+            "id":  6,
+            "name": "ham",
+            "type": {
+              "id": "filling",
+              "selection": "many"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "day": "Tuesday",
+      "month": "September",
+      "date": 1,
+      "sandwich": {
+        "ingredients": [
+          {
+            "id":  1,
+            "name": "brown bread",
+            "type": {
+              "id": "bread",
+              "selection": "one"
+            }
+          },
+          {
+            "id":  7,
+            "name": "cheese",
+            "type": {
+              "id": "filling",
+              "selection": "many"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "day": "Wednesday",
+      "month": "September",
+      "date": 2,
+      "sandwich": {
+        "ingredients": []
+      }
+    },
+    {
+      "day": "Thursday",
+      "month": "September",
+      "date": 3,
+      "sandwich": {
+        "ingredients": []
+      }
+    },
+    {
+      "day": "Friday",
+      "month": "September",
+      "date": 3,
+      "sandwich": {
+        "ingredients": []
+      }
+    }
+  ]
+}

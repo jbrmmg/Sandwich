@@ -1,0 +1,18 @@
+[
+  {
+    "id": 6,
+    "name":"ham",
+    "type": {
+      "id": "filling",
+      "selection": "many"
+    }
+  },
+  {
+    "id": 7,
+    "name":"cheese",
+    "type": {
+      "id": "filling",
+      "selection": "many"
+    }
+  }
+]

@@ -1,0 +1,18 @@
+[
+  {
+    "id": 8,
+    "name":"tomato",
+    "type": {
+      "id": "addon",
+      "selection": "many"
+    }
+  },
+  {
+    "id": 9,
+    "name":"lettuce",
+    "type": {
+      "id": "addon",
+      "selection": "many"
+    }
+  }
+]

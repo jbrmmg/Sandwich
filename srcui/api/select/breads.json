@@ -1,0 +1,26 @@
+[
+  {
+    "id": 1,
+    "name":"brown bread",
+    "type": {
+      "id": "bread",
+      "selection": "one"
+    }
+  },
+  {
+    "id": 2,
+    "name":"white bread",
+    "type": {
+      "id": "bread",
+      "selection": "one"
+    }
+  },
+  {
+    "id": 3,
+    "name":"seeded bread",
+    "type": {
+      "id": "bread",
+      "selection": "one"
+    }
+  }
+]

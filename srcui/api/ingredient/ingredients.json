@@ -1,47 +1,82 @@
 [
   {
     "id": 1,
-    "name":"brown bread",
-    "type":"bread"
+    "name":"Brown Bread",
+    "type": {
+      "id": "bread",
+      "selection": "one"
+    }
   },
   {
     "id": 2,
-    "name":"white bread",
-    "type":"bread"
+    "name":"White Bread",
+    "type": {
+      "id": "bread",
+      "selection": "one"
+    }
   },
   {
     "id": 3,
-    "name":"seeded bread",
-    "type":"bread"
+    "name":"Seeded Bread",
+    "type": {
+      "id": "bread",
+      "selection": "one"
+    }
   },
   {
     "id": 4,
-    "name":"bagel",
-    "type":"bread"
+    "name":"Bagel",
+    "type": {
+      "id": "bread",
+      "selection": "one"
+    }
   },
   {
     "id": 5,
-    "name":"butter",
-    "type":"spread"
+    "name":"Butter",
+    "type": {
+      "id": "spread",
+      "selection": "yesno"
+    }
   },
   {
     "id": 6,
     "name":"ham",
-    "type":"filling"
+    "type": {
+      "id": "filling",
+      "selection": "many"
+    }
   },
   {
     "id": 7,
     "name":"cheese",
-    "type":"filling"
+    "type": {
+      "id": "filling",
+      "selection": "many"
+    }
   },
   {
     "id": 8,
     "name":"tomato",
-    "type":"addon"
+    "type": {
+      "id": "addon",
+      "selection": "many"
+    }
   },
   {
     "id": 9,
     "name":"lettuce",
-    "type":"addon"
+    "type": {
+      "id": "addon",
+      "selection": "many"
+    }
+  },
+  {
+    "id": 10,
+    "name":"Mustard",
+    "type": {
+      "id": "spread",
+      "selection": "yesno"
+    }
   }
 ]

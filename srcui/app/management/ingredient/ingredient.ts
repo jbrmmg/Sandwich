@@ -1,5 +1,7 @@
+import {IIngredientType} from './ingredient.type';
+
 export interface IIngredient {
     id: number;
     name: string;
-    type: string;
+    type: IIngredientType;
 }

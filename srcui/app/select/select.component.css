@@ -6,3 +6,27 @@
 .txt-entry {
     margin: 10px 5px 0 5px;
 }
+
+.btn-title {
+    width: 100%;
+}
+
+.btn-one-type {
+    width: 160px;
+    margin: 0 0 10px 10px;
+}
+
+.btn-option {
+    width: 220px;
+}
+
+.section-title {
+    font-weight: bolder;
+    font-size: large;
+    text-transform: uppercase;
+}
+
+.btn-menu {
+    margin-top: 30px;
+    margin-right: 10px;
+}

@@ -4,6 +4,85 @@
         <a class='navbar-brand'>Sandwich Service</a>
     </nav>
     <div class="card-body">
-        <p>SELECT {{who}}</p>
+        <div *ngIf="user">
+            <div class="row">
+                <div class="col-12">
+                    <label class="btn btn-outline-primary btn-title">{{user.name}}</label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-3">
+                    <label class="btn btn-primary btn-title"
+                        (click)="movePrev()">Prev</label>
+                </div>
+                <div class="col-6">
+                    <label class="btn btn-primary btn-title">{{selectedDay.day}}</label>
+                </div>
+                <div class="col-3">
+                    <label class="btn btn-primary btn-title"
+                        (click)="moveNext()">Next</label>
+                </div>
+            </div>
+        </div>
+        <div *ngIf="ingredientTypes && ingredientTypes.length > 0">
+            <div *ngFor="let ingredientType of ingredientTypes">
+                <div class="row">
+                    <label class="col-12 section-title">{{ingredientType.id}}</label>
+                </div>
+                <div *ngIf="ingredientType.selection === 'one'">
+                    <div class="row">
+                        <div *ngFor="let nextIngredient of ingredients">
+                            <div *ngIf="nextIngredient.type.id === ingredientType.id">
+                                <label class="col btn-one-type" [ngClass]="{'btn': true,
+                                        'btn-primary': isIngredientSelected(nextIngredient),
+                                        'btn-outline-primary': !isIngredientSelected(nextIngredient) }"
+                                       (click)="selectIngredient(nextIngredient)">{{nextIngredient.name}}</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div *ngIf="ingredientType.selection === 'yesno'">
+                    <div *ngFor="let nextIngredient of ingredients">
+                        <div *ngIf="nextIngredient.type.id === ingredientType.id">
+                            <div class="row">
+                                <label class="col-4">
+                                    {{nextIngredient.name}}
+                                </label>
+                                <div class="col-2">
+                                    <label [ngClass]="{'btn': true,
+                                        'btn-primary': isIngredientSelected(nextIngredient),
+                                        'btn-outline-primary': !isIngredientSelected(nextIngredient) }"
+                                           (click)="selectIngredient(nextIngredient)">Yes</label>
+                                </div>
+                                <div class="col-2">
+                                    <label [ngClass]="{'btn': true,
+                                        'btn-primary': !isIngredientSelected(nextIngredient),
+                                        'btn-outline-primary': isIngredientSelected(nextIngredient) }"
+                                           (click)="selectIngredient(nextIngredient)">No</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div *ngIf="ingredientType.selection === 'many'">
+                    <div *ngFor="let nextIngredient of ingredients">
+                        <div class="row" *ngIf="nextIngredient.type.id === ingredientType.id">
+                            <div class="col-12">
+                                <label [ngClass]="{'btn btn-option': true,
+                                        'btn-primary': isIngredientSelected(nextIngredient),
+                                        'btn-outline-primary': !isIngredientSelected(nextIngredient) }"
+                                       (click)="selectIngredient(nextIngredient)">
+                                    {{nextIngredient.name}}
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <label class="btn btn-danger btn-menu" (click)="clear()">Clear</label>
+                <label class="btn btn-primary btn-menu" (click)="save()">Save</label>
+            </div>
+        </div>
     </div>
 </div>

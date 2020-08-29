@@ -4,6 +4,26 @@ databaseChangeLog:
       author: jason
       changes:
         - createTable:
+            tableName: ingredient_type
+            columns:
+              - column:
+                  name: id
+                  type: varchar(15)
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: selection_id
+                  type: int
+                  constraints:
+                    nullable: false
+              - column:
+                  name: order
+                  type: int
+                  constraints:
+                    nullable: false
+
+        - createTable:
             tableName: ingredient
             columns:
               - column:
@@ -18,3 +38,388 @@ databaseChangeLog:
                   type: varchar(100)
                   constraints:
                     nullable: false
+              - column:
+                  name: type
+                  type: varchar(15)
+                  constraints:
+                    nullable: false
+
+        - addForeignKeyConstraint:
+            constraintName: fk_ingredient_type
+            baseTableName: ingredient
+            baseColumnNames: type
+            referencedTableName: ingredient_type
+            referencedColumnNames: id
+
+        - createTable:
+            tableName: user
+            columns:
+              - column:
+                  name: id
+                  type: char(5)
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: name
+                  type: varchar(25)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: email
+                  type: varchar(80)
+                  constraints:
+                    nullable: false
+
+        - createTable:
+            tableName: user_day
+            columns:
+              - column:
+                  name: day
+                  type: varchar(15)
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: date
+                  type: int
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: user
+                  type: char(5)
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: month
+                  type: varchar(15)
+
+        - createTable:
+            tableName: user_day_ingredient
+            columns:
+              - column:
+                  name: day
+                  type: varchar(15)
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: date
+                  type: int
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: user
+                  type: char(5)
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: ingredient
+                  type: int
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+
+        - insert:
+            tableName: ingredient_type
+            columns:
+              - column:
+                  name: id
+                  value: bread
+              - column:
+                  name: selection_id
+                  value: 0
+              - column:
+                  name: order
+                  value: 1
+
+        - insert:
+            tableName: ingredient_type
+            columns:
+              - column:
+                  name: id
+                  value: spread
+              - column:
+                  name: selection_id
+                  value: 1
+              - column:
+                  name: order
+                  value: 2
+
+        - insert:
+            tableName: ingredient_type
+            columns:
+              - column:
+                  name: id
+                  value: filling
+              - column:
+                  name: selection_id
+                  value: 2
+              - column:
+                  name: order
+                  value: 3
+
+        - insert:
+            tableName: ingredient_type
+            columns:
+              - column:
+                  name: id
+                  value: extra
+              - column:
+                  name: selection_id
+                  value: 2
+              - column:
+                  name: order
+                  value: 4
+
+        - insert:
+            tableName: ingredient
+            columns:
+              - column:
+                  name: name
+                  value: Cheese
+              - column:
+                  name: type
+                  value: filling
+
+        - insert:
+            tableName: ingredient
+            columns:
+              - column:
+                  name: name
+                  value: Ham
+              - column:
+                  name: type
+                  value: filling
+
+        - insert:
+            tableName: ingredient
+            columns:
+              - column:
+                  name: name
+                  value: Brown Bread
+              - column:
+                  name: type
+                  value: bread
+
+        - insert:
+            tableName: ingredient
+            columns:
+              - column:
+                  name: name
+                  value: White Bread
+              - column:
+                  name: type
+                  value: bread
+
+        - insert:
+            tableName: ingredient
+            columns:
+              - column:
+                  name: name
+                  value: Seeded Bread
+              - column:
+                  name: type
+                  value: bread
+
+        - insert:
+            tableName: ingredient
+            columns:
+              - column:
+                  name: name
+                  value: Bagel
+              - column:
+                  name: type
+                  value: bread
+
+        - insert:
+            tableName: ingredient
+            columns:
+              - column:
+                  name: name
+                  value: Butter
+              - column:
+                  name: type
+                  value: spread
+
+        - insert:
+            tableName: ingredient
+            columns:
+              - column:
+                  name: name
+                  value: Mustard
+              - column:
+                  name: type
+                  value: spread
+
+        - insert:
+            tableName: ingredient
+            columns:
+              - column:
+                  name: name
+                  value: Tomato
+              - column:
+                  name: type
+                  value: extra
+
+        - insert:
+            tableName: ingredient
+            columns:
+              - column:
+                  name: name
+                  value: Lettuce
+              - column:
+                  name: type
+                  value: extra
+
+        - insert:
+            tableName: user
+            columns:
+              - column:
+                  name: id
+                  value: KWYCE
+              - column:
+                  name: name
+                  value: Martina
+              - column:
+                  name: email
+                  value: martina@jbrmmg.me.uk
+
+        - insert:
+            tableName: user_day
+            columns:
+              - column:
+                  name: day
+                  value: Monday
+              - column:
+                  name: date
+                  value: 31
+              - column:
+                  name: user
+                  value: KWYCE
+              - column:
+                  name: month
+                  value: Aug
+
+        - insert:
+            tableName: user_day_ingredient
+            columns:
+              - column:
+                  name: day
+                  value: Monday
+              - column:
+                  name: date
+                  value: 31
+              - column:
+                  name: user
+                  value: KWYCE
+              - column:
+                  name: ingredient
+                  value: 1
+
+        - insert:
+            tableName: user_day_ingredient
+            columns:
+              - column:
+                  name: day
+                  value: Monday
+              - column:
+                  name: date
+                  value: 31
+              - column:
+                  name: user
+                  value: KWYCE
+              - column:
+                  name: ingredient
+                  value: 3
+
+        - insert:
+            tableName: user_day
+            columns:
+              - column:
+                  name: day
+                  value: Tuesday
+              - column:
+                  name: date
+                  value: 1
+              - column:
+                  name: user
+                  value: KWYCE
+              - column:
+                  name: month
+                  value: Sep
+
+        - insert:
+            tableName: user_day_ingredient
+            columns:
+              - column:
+                  name: day
+                  value: Tuesday
+              - column:
+                  name: date
+                  value: 1
+              - column:
+                  name: user
+                  value: KWYCE
+              - column:
+                  name: ingredient
+                  value: 2
+
+        - insert:
+            tableName: user_day_ingredient
+            columns:
+              - column:
+                  name: day
+                  value: Tuesday
+              - column:
+                  name: date
+                  value: 1
+              - column:
+                  name: user
+                  value: KWYCE
+              - column:
+                  name: ingredient
+                  value: 4
+
+        - insert:
+            tableName: user
+            columns:
+              - column:
+                  name: id
+                  value: CTWGC
+              - column:
+                  name: name
+                  value: Thomas
+              - column:
+                  name: email
+                  value: thomas@jbrmmg.me.uk
+
+        - insert:
+            tableName: user
+            columns:
+              - column:
+                  name: id
+                  value: BFHSM
+              - column:
+                  name: name
+                  value: Cian
+              - column:
+                  name: email
+                  value: cian@jbrmmg.me.uk
+
+        - insert:
+            tableName: user
+            columns:
+              - column:
+                  name: id
+                  value: PPNHR
+              - column:
+                  name: name
+                  value: Jason
+              - column:
+                  name: email
+                  value: jason@jbrmmg.me.uk

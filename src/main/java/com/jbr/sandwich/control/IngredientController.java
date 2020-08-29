@@ -19,6 +19,6 @@ public class IngredientController {
 
     @GetMapping("/ingredients")
     public List<Ingredient> getIngredients() {
-        return (List<Ingredient>)ingredientRepository.findAll();
+        return ingredientRepository.findAll();
     }
 }

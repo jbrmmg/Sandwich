@@ -1,11 +1,9 @@
-import {SelectSandwich} from './select.sandwich';
+import {IIngredient} from '../management/ingredient/ingredient';
 
 export class SelectDay {
     day: string;
     month: string;
     date: number;
-    sandwich: SelectSandwich;
-
-    constructor() {
-    }
+    locked: boolean;
+    sandwich: IIngredient[];
 }

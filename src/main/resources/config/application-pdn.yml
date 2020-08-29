@@ -1,0 +1,30 @@
+spring:
+  datasource:
+    url: ${db.pdn.sandwich.server}?autoReconnect=true&useSSL=false
+    username: ${db.pdn.sandwich.user}
+    password: ${db.pdn.sandwich.password}
+
+  boot:
+    admin:
+      client:
+        url: ${spring.admin.clienturl}
+
+
+  application:
+    name: Sandwich
+
+  h2:
+    console:
+      enabled: false
+
+logging.file: /var/log/jbr/Sandwich-PDN.log
+logging:
+  level:
+    ROOT: INFO
+    com.jbr.middletier: INFO
+  file:
+    max-history: 3
+    max-size: 100MB
+
+server:
+  port: 12022

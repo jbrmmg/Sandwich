@@ -4,7 +4,7 @@ import {Observable, throwError} from 'rxjs';
 import {SelectUser} from './select.user';
 import {environment} from '../../environments/environment';
 import {catchError, tap} from 'rxjs/operators';
-import {SelectSandwich} from './select.sandwich';
+import {IIngredient} from '../management/ingredient/ingredient';
 
 @Injectable({
     providedIn: 'root'
@@ -31,8 +31,8 @@ export class SelectService {
         );
     }
 
-    saveSandwich(id: string, day: string, sandwich: SelectSandwich) {
-        return this._http.put<SelectSandwich>( `sandwich?user=${id}&day=${day}`, sandwich).subscribe(
+    saveSandwich(id: string, day: string, date: number, sandwich: IIngredient[]) {
+        return this._http.put<IIngredient[]>( `sandwich?user=${id}&day=${day}&date=${date}`, sandwich).subscribe(
             () => {
                 console.log('PUT call successful value returned in body');
             },

@@ -1,0 +1,29 @@
+spring:
+  datasource:
+    url: ${db.dev.sandwich.server}?autoReconnect=true&useSSL=false
+    username: ${db.dev.sandwich.user}
+    password: ${db.dev.sandwich.password}
+
+  boot:
+    admin:
+      client:
+        url: ${spring.admin.clienturl}
+
+  application:
+    name: Sandwich (Development)
+
+  h2:
+    console:
+      enabled: false
+
+logging.file: /var/log/jbr/Sandwich-DEV.log
+logging:
+  level:
+    ROOT: INFO
+    com.jbr.middletier: DEBUG
+  file:
+    max-history: 3
+    max-size: 100MB
+
+server:
+  port: 10022

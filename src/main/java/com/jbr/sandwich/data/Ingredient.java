@@ -1,9 +1,6 @@
 package com.jbr.sandwich.data;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
 public class Ingredient {
@@ -12,6 +9,10 @@ public class Ingredient {
     private Long id;
 
     private String name;
+
+    @JoinColumn(name="type")
+    @ManyToOne(optional = false)
+    private IngredientType type;
 
     protected Ingredient() {
     }
@@ -30,6 +31,14 @@ public class Ingredient {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public IngredientType getType() {
+        return type;
+    }
+
+    public void setType(IngredientType type) {
+        this.type = type;
     }
 
     @Override

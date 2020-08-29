@@ -5,10 +5,10 @@
   "days": [
     {
       "day": "Monday",
-      "month": "August",
+      "month": "Aug",
+      "locked": false,
       "date": 31,
-      "sandwich": {
-        "ingredients": [
+      "sandwich": [
           {
             "id":  1,
             "name": "brown bread",
@@ -34,11 +34,11 @@
             }
           }
         ]
-      }
     },
     {
       "day": "Tuesday",
-      "month": "September",
+      "month": "Sep",
+      "locked": false,
       "date": 1,
       "sandwich": {
         "ingredients": []
@@ -46,7 +46,8 @@
     },
     {
       "day": "Wednesday",
-      "month": "September",
+      "month": "Sep",
+      "locked": false,
       "date": 2,
       "sandwich": {
         "ingredients": []
@@ -54,7 +55,8 @@
     },
     {
       "day": "Thursday",
-      "month": "September",
+      "month": "Sep",
+      "locked": false,
       "date": 3,
       "sandwich": {
         "ingredients": []
@@ -62,8 +64,18 @@
     },
     {
       "day": "Friday",
-      "month": "September",
+      "month": "Sep",
+      "locked": false,
       "date": 3,
+      "sandwich": {
+        "ingredients": []
+      }
+    },
+    {
+      "day": "Monday",
+      "month": "Aug",
+      "locked": true,
+      "date": 25,
       "sandwich": {
         "ingredients": []
       }

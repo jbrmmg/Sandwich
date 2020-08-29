@@ -16,10 +16,12 @@ export class SelectComponent implements OnInit {
     user: SelectUser;
     ingredientTypes: IIngredientType[];
     ingredients: IIngredient[];
+    moveEnabled: boolean;
 
     constructor ( private readonly _userService: SelectService,
                   private readonly _ingredientService: IngredientsService,
                   private readonly route: ActivatedRoute) {
+        this.moveEnabled = false;
     }
 
     ngOnInit() {
@@ -27,10 +29,25 @@ export class SelectComponent implements OnInit {
             this._userService.getUser(params['id']).subscribe(
                 selectedUser => {
                     this.user = selectedUser;
-                    this.selectedDayIndex = 0;
+                    this.selectedDayIndex = -1;
+                    this.moveEnabled = false;
                 },
                 error => console.log(`Failed to get the user ${params['id']} ${error}.`),
-                () => console.log(`Finished get user ${params['id']}.`)
+                () => {
+                    // If there are non-locked days then enable moving.
+                    if(this.user.days) {
+                        let currentIndex = 0;
+                        for (let nextDay of this.user.days) {
+                            if (!nextDay.locked) {
+                                this.selectedDayIndex = currentIndex;
+                                this.moveEnabled = true;
+                                break;
+                            }
+                            currentIndex++;
+                        }
+                    }
+                    console.log(`Finished get user ${params['id']}.`)
+                }
             );
         });
 
@@ -66,25 +83,49 @@ export class SelectComponent implements OnInit {
         return null;
     }
 
-    moveNext() {
-        this.save();
+    private incrementIndex() {
         this.selectedDayIndex++;
         if(this.selectedDayIndex >= this.user.days.length) {
             this.selectedDayIndex = 0;
         }
     }
 
-    movePrev() {
-        this.save();
+    private decrementIndex() {
         this.selectedDayIndex--;
         if(this.selectedDayIndex < 0) {
             this.selectedDayIndex = this.user.days.length - 1;
         }
     }
 
+    moveNext() {
+        if(!this.moveEnabled) {
+            return;
+        }
+
+        this.save();
+        this.incrementIndex();
+
+        while(this.selectedDay.locked) {
+            this.incrementIndex();
+        }
+    }
+
+    movePrev() {
+        if(!this.moveEnabled) {
+            return;
+        }
+
+        this.save();
+        this.decrementIndex();
+
+        while(this.selectedDay.locked) {
+            this.decrementIndex();
+        }
+    }
+
     private selectedTypeIndex(ingredient: IIngredient): number {
         let currentIndex = 0;
-        for(let nextSelected of this.selectedDay.sandwich.ingredients) {
+        for(let nextSelected of this.selectedDay.sandwich) {
             if(nextSelected.type.id === ingredient.type.id) {
                 return currentIndex;
             }
@@ -96,7 +137,7 @@ export class SelectComponent implements OnInit {
 
     private selectedIndex(ingredient: IIngredient): number {
         let currentIndex = 0;
-        for(let nextSelected of this.selectedDay.sandwich.ingredients) {
+        for(let nextSelected of this.selectedDay.sandwich) {
             if(nextSelected.id === ingredient.id) {
                 return currentIndex;
             }
@@ -111,10 +152,10 @@ export class SelectComponent implements OnInit {
         let selectedIndex = this.selectedTypeIndex(ingredient);
 
         if(selectedIndex != -1) {
-            this.selectedDay.sandwich.ingredients.splice(selectedIndex,1);
+            this.selectedDay.sandwich.splice(selectedIndex,1);
         }
 
-        this.selectedDay.sandwich.ingredients.push(ingredient);
+        this.selectedDay.sandwich.push(ingredient);
     }
 
     private selectManyIngredient(ingredient: IIngredient) {
@@ -122,9 +163,9 @@ export class SelectComponent implements OnInit {
         let selectedIndex = this.selectedIndex(ingredient);
 
         if(selectedIndex != -1) {
-            this.selectedDay.sandwich.ingredients.splice(selectedIndex,1);
+            this.selectedDay.sandwich.splice(selectedIndex,1);
         } else {
-            this.selectedDay.sandwich.ingredients.push(ingredient);
+            this.selectedDay.sandwich.push(ingredient);
         }
     }
 
@@ -142,7 +183,7 @@ export class SelectComponent implements OnInit {
 
     isIngredientSelected(ingredient: IIngredient): boolean {
         // Is this ingredient, in the current sandwich?
-        for(let nextSelected of this.selectedDay.sandwich.ingredients) {
+        for(let nextSelected of this.selectedDay.sandwich) {
             if(nextSelected.id === ingredient.id) {
                 return true;
             }
@@ -152,11 +193,11 @@ export class SelectComponent implements OnInit {
     }
 
     clear(): void {
-        this.selectedDay.sandwich.ingredients = [];
+        this.selectedDay.sandwich = [];
     }
 
 
     save(): void {
-        this._userService.saveSandwich(this.user.id, this.selectedDay.day, this.selectedDay.sandwich);
+        this._userService.saveSandwich(this.user.id, this.selectedDay.day, this.selectedDay.date, this.selectedDay.sandwich);
     }
 }

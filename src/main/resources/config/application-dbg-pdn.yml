@@ -1,0 +1,10 @@
+logging:
+  level:
+    ROOT: INFO
+    com.jbr.middletier: DEBUG
+
+spring:
+  datasource:
+    url: ${db.pdn.sandwich.server}?autoReconnect=true&useSSL=false
+    username: ${db.pdn.sandwich.user}
+    password: ${db.pdn.sandwich.password}

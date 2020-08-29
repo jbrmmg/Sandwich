@@ -1,5 +1,6 @@
 package com.jbr.sandwich;
 
+import com.jbr.sandwich.config.DefaultProfileUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.SpringApplication;
@@ -18,6 +19,7 @@ public class Sandwich {
     public static void main(String[] args) {
         log.info("Starting up.");
         SpringApplication app = new SpringApplication(Sandwich.class);
+        DefaultProfileUtil.addDefaultProfile(app);
         app.run();
     }
 }

@@ -1,0 +1,11 @@
+logging:
+  level:
+    ROOT: INFO
+    com.jbr.middletier: DEBUG
+
+spring:
+  datasource:
+    url: ${db.dev.sandwich.server}?autoReconnect=true&useSSL=false
+    username: ${db.dev.sandwich.user}
+    password: ${db.dev.sandwich.password}
+

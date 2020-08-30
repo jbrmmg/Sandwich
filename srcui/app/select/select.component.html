@@ -13,18 +13,14 @@
             <div class="row">
                 <div class="col-3">
                     <label class="btn btn-primary btn-title"
-                        (click)="movePrev()">
-                        <em class="fa fa-arrow-left"></em>
-                    </label>
+                        (click)="movePrev()">&lt;</label>
                 </div>
                 <div class="col-6">
                     <label class="btn btn-primary btn-title">{{selectedDay.day}} ({{selectedDay.date}}-{{selectedDay.month}})</label>
                 </div>
                 <div class="col-3">
                     <label class="btn btn-primary btn-title"
-                        (click)="moveNext()">
-                        <em class="fa fa-arrow-right"></em>
-                    </label>
+                        (click)="moveNext()">&gt;</label>
                 </div>
             </div>
         </div>

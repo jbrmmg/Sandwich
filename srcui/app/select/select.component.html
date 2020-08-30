@@ -13,14 +13,18 @@
             <div class="row">
                 <div class="col-3">
                     <label class="btn btn-primary btn-title"
-                        (click)="movePrev()">Prev</label>
+                        (click)="movePrev()">
+                        <em class="fa fa-arrow-left"></em>
+                    </label>
                 </div>
                 <div class="col-6">
                     <label class="btn btn-primary btn-title">{{selectedDay.day}} ({{selectedDay.date}}-{{selectedDay.month}})</label>
                 </div>
                 <div class="col-3">
                     <label class="btn btn-primary btn-title"
-                        (click)="moveNext()">Next</label>
+                        (click)="moveNext()">
+                        <em class="fa fa-arrow-right"></em>
+                    </label>
                 </div>
             </div>
         </div>
@@ -29,7 +33,7 @@
                 <div class="row">
                     <label class="col-12 section-title">{{ingredientType.id}}</label>
                 </div>
-                <div *ngIf="ingredientType.selection === 'one'">
+                <div *ngIf="ingredientType.selection === 'ONE'">
                     <div class="row">
                         <div *ngFor="let nextIngredient of ingredients">
                             <div *ngIf="nextIngredient.type.id === ingredientType.id">
@@ -41,11 +45,11 @@
                         </div>
                     </div>
                 </div>
-                <div *ngIf="ingredientType.selection === 'yesno'">
+                <div *ngIf="ingredientType.selection === 'YES_OR_NO'">
                     <div *ngFor="let nextIngredient of ingredients">
                         <div *ngIf="nextIngredient.type.id === ingredientType.id">
                             <div class="row">
-                                <label class="col-4">
+                                <label class="col-6">
                                     {{nextIngredient.name}}
                                 </label>
                                 <div class="col-2">
@@ -64,7 +68,7 @@
                         </div>
                     </div>
                 </div>
-                <div *ngIf="ingredientType.selection === 'many'">
+                <div *ngIf="ingredientType.selection === 'MANY'">
                     <div *ngFor="let nextIngredient of ingredients">
                         <div class="row" *ngIf="nextIngredient.type.id === ingredientType.id">
                             <div class="col-12">

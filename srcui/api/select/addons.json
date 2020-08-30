@@ -4,7 +4,7 @@
     "name":"tomato",
     "type": {
       "id": "addon",
-      "selection": "many"
+      "selection": "MANY"
     }
   },
   {
@@ -12,7 +12,7 @@
     "name":"lettuce",
     "type": {
       "id": "addon",
-      "selection": "many"
+      "selection": "MANY"
     }
   }
 ]

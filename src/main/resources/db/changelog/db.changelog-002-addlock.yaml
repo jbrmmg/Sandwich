@@ -1,0 +1,34 @@
+databaseChangeLog:
+  - changeSet:
+      id: 2
+      author: jason
+      changes:
+
+        - addColumn:
+            tableName: user_day
+            columns:
+              - column:
+                  name: locked
+                  type: boolean
+                  valueBoolean: false
+
+        - addForeignKeyConstraint:
+            constraintName: fk_user_day_user
+            baseTableName: user_day
+            baseColumnNames: user
+            referencedTableName: user
+            referencedColumnNames: id
+
+        - addForeignKeyConstraint:
+            constraintName: fk_sandwich_user
+            baseTableName: user_day_ingredient
+            baseColumnNames: day, date, user
+            referencedTableName: user_day
+            referencedColumnNames: day, date, user
+
+        - addForeignKeyConstraint:
+            constraintName: fk_sandwich_ingredient
+            baseTableName: user_day_ingredient
+            baseColumnNames: ingredient
+            referencedTableName: ingredient
+            referencedColumnNames: id

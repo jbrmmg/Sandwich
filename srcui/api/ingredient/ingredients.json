@@ -4,7 +4,7 @@
     "name":"Brown Bread",
     "type": {
       "id": "bread",
-      "selection": "one"
+      "selection": "ONE"
     }
   },
   {
@@ -12,7 +12,7 @@
     "name":"White Bread",
     "type": {
       "id": "bread",
-      "selection": "one"
+      "selection": "ONE"
     }
   },
   {
@@ -20,7 +20,7 @@
     "name":"Seeded Bread",
     "type": {
       "id": "bread",
-      "selection": "one"
+      "selection": "ONE"
     }
   },
   {
@@ -28,7 +28,7 @@
     "name":"Bagel",
     "type": {
       "id": "bread",
-      "selection": "one"
+      "selection": "ONE"
     }
   },
   {
@@ -36,7 +36,7 @@
     "name":"Butter",
     "type": {
       "id": "spread",
-      "selection": "yesno"
+      "selection": "YES_OR_NO"
     }
   },
   {
@@ -44,7 +44,7 @@
     "name":"ham",
     "type": {
       "id": "filling",
-      "selection": "many"
+      "selection": "MANY"
     }
   },
   {
@@ -52,7 +52,7 @@
     "name":"cheese",
     "type": {
       "id": "filling",
-      "selection": "many"
+      "selection": "MANY"
     }
   },
   {
@@ -60,7 +60,7 @@
     "name":"tomato",
     "type": {
       "id": "addon",
-      "selection": "many"
+      "selection": "MANY"
     }
   },
   {
@@ -68,7 +68,7 @@
     "name":"lettuce",
     "type": {
       "id": "addon",
-      "selection": "many"
+      "selection": "MANY"
     }
   },
   {
@@ -76,7 +76,7 @@
     "name":"Mustard",
     "type": {
       "id": "spread",
-      "selection": "yesno"
+      "selection": "YES_OR_NO"
     }
   }
 ]

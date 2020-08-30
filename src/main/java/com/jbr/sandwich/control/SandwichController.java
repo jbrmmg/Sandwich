@@ -1,18 +1,13 @@
 package com.jbr.sandwich.control;
 
-import com.jbr.sandwich.data.Ingredient;
-import com.jbr.sandwich.data.UserDay;
-import com.jbr.sandwich.data.UserDayId;
-import com.jbr.sandwich.data.dtoIngredient;
+import com.jbr.sandwich.data.*;
 import com.jbr.sandwich.dataaccess.IngredientRepository;
 import com.jbr.sandwich.dataaccess.UserDayRepository;
+import com.jbr.sandwich.schedule.RefreshCtrl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
@@ -23,12 +18,15 @@ public class SandwichController {
 
     private final UserDayRepository userDayRepository;
     private final IngredientRepository ingredientRepository;
+    private final RefreshCtrl refreshCtrl;
 
     @Autowired
     public SandwichController(UserDayRepository userDayepository,
-                              IngredientRepository ingredientRepository) {
+                              IngredientRepository ingredientRepository,
+                              RefreshCtrl refreshCtrl) {
         this.userDayRepository = userDayepository;
         this.ingredientRepository = ingredientRepository;
+        this.refreshCtrl = refreshCtrl;
     }
 
     @PutMapping("/sandwich")
@@ -36,7 +34,7 @@ public class SandwichController {
                                @RequestParam String day,
                                @RequestParam int date,
                                @RequestBody List<dtoIngredient> ingredients) throws Exception {
-        LOG.info("Save sandwich");
+        LOG.info("Save sandwich - {} {} {}", user, day, date);
 
         // Load the day specified.
         UserDayId userDayId = new UserDayId();
@@ -55,11 +53,14 @@ public class SandwichController {
         for(dtoIngredient nextIngredient: ingredients) {
             Optional<Ingredient> loadedIngredient = ingredientRepository.findById(nextIngredient.getId());
 
-            if(loadedIngredient.isPresent()) {
-                loadedDay.get().getSandwich().add(loadedIngredient.get());
-            }
+            loadedIngredient.ifPresent(ingredient -> loadedDay.get().getSandwich().add(ingredient));
         }
 
         userDayRepository.save(loadedDay.get());
+    }
+
+    @PostMapping("/sandwich/refresh")
+    public void refreshSandwichs() {
+        refreshCtrl.scheduleRefresh();
     }
 }

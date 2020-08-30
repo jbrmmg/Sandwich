@@ -22,3 +22,6 @@ spring:
     default-schema:
     change-log: classpath:/db/changelog/db.changelog-master.yaml
     contexts: default
+
+sandwich:
+  schedule: 0 0 4 * * ?

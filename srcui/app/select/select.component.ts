@@ -57,20 +57,22 @@ export class SelectComponent implements OnInit {
                 () => {
                     // If there are non-locked days then enable moving.
                     if(this.user.days) {
+                        // Sort the days.
+                        this.user.days.sort( (d1,d2) => {
+                            if( this.dayToInt(d1.day) > this.dayToInt(d2.day) ) {
+                                return 1;
+                            } else if ( this.dayToInt(d1.day) === this.dayToInt(d2.day) ) {
+                                return 0;
+                            }
+
+                            return -1;
+                        } );
+
                         let currentIndex = 0;
                         for (let nextDay of this.user.days) {
                             if (!nextDay.locked) {
                                 this.selectedDayIndex = currentIndex;
                                 this.moveEnabled = true;
-                                this.user.days.sort( (d1,d2) => {
-                                    if( this.dayToInt(d1.day) > this.dayToInt(d2.day) ) {
-                                        return 1;
-                                    } else if ( this.dayToInt(d1.day) === this.dayToInt(d2.day) ) {
-                                        return 0;
-                                    }
-
-                                    return -1;
-                                } );
                                 break;
                             }
                             currentIndex++;

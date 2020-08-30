@@ -3,6 +3,8 @@ package com.jbr.sandwich.control;
 import com.jbr.sandwich.data.User;
 import com.jbr.sandwich.data.dtoUser;
 import com.jbr.sandwich.dataaccess.UserRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -11,6 +13,7 @@ import java.util.Optional;
 
 @RestController
 public class UserController {
+    private static final Logger LOG = LoggerFactory.getLogger(UserController.class);
     private final UserRepository userRepository;
 
     @Autowired

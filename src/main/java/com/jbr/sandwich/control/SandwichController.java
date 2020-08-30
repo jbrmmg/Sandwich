@@ -3,13 +3,12 @@ package com.jbr.sandwich.control;
 import com.jbr.sandwich.data.*;
 import com.jbr.sandwich.dataaccess.IngredientRepository;
 import com.jbr.sandwich.dataaccess.UserDayRepository;
-import com.jbr.sandwich.dataaccess.UserRepository;
+import com.jbr.sandwich.schedule.RefreshCtrl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Calendar;
 import java.util.List;
 import java.util.Optional;
 
@@ -17,17 +16,17 @@ import java.util.Optional;
 public class SandwichController {
     final static private Logger LOG = LoggerFactory.getLogger(SandwichController.class);
 
-    private final UserRepository userRepository;
     private final UserDayRepository userDayRepository;
     private final IngredientRepository ingredientRepository;
+    private final RefreshCtrl refreshCtrl;
 
     @Autowired
-    public SandwichController(UserRepository userRepository,
-                              UserDayRepository userDayepository,
-                              IngredientRepository ingredientRepository) {
-        this.userRepository = userRepository;
+    public SandwichController(UserDayRepository userDayepository,
+                              IngredientRepository ingredientRepository,
+                              RefreshCtrl refreshCtrl) {
         this.userDayRepository = userDayepository;
         this.ingredientRepository = ingredientRepository;
+        this.refreshCtrl = refreshCtrl;
     }
 
     @PutMapping("/sandwich")
@@ -35,7 +34,7 @@ public class SandwichController {
                                @RequestParam String day,
                                @RequestParam int date,
                                @RequestBody List<dtoIngredient> ingredients) throws Exception {
-        LOG.info("Save sandwich");
+        LOG.info("Save sandwich - {} {} {}", user, day, date);
 
         // Load the day specified.
         UserDayId userDayId = new UserDayId();
@@ -60,98 +59,8 @@ public class SandwichController {
         userDayRepository.save(loadedDay.get());
     }
 
-    private void lockUser(User user) {
-        // Any day currently locked, delete.
-        for(UserDay nextDay: user.getDays()) {
-            if(nextDay.getLocked()) {
-                userDayRepository.delete(nextDay);
-            }
-        }
-
-        // Any day currently not locked, lock.
-        for(UserDay nextDay: user.getDays()) {
-            if(!nextDay.getLocked()) {
-                nextDay.setLocked(true);
-                userDayRepository.save(nextDay);
-            }
-        }
-
-        // Create days for a week on monday.
-        Calendar calendar = Calendar.getInstance();
-        for(int i = 0; i < 2; i++) {
-            calendar.add(Calendar.DATE, 1);
-
-            while (calendar.get(Calendar.DAY_OF_WEEK) != Calendar.MONDAY) {
-                calendar.add(Calendar.DATE, 1);
-            }
-        }
-
-        for(int i = 0; i < 5; i++) {
-            UserDay nextNewDay = new UserDay();
-            nextNewDay.setLocked(false);
-            nextNewDay.getId().setDate(calendar.get(Calendar.DAY_OF_MONTH));
-            nextNewDay.getId().setDay(getDayOfWeek(calendar));
-            nextNewDay.setMonth(getMonth(calendar));
-            nextNewDay.getId().setUser(user.getId());
-
-            userDayRepository.save(nextNewDay);
-
-            calendar.add(Calendar.DATE, 1);
-        }
-    }
-
-    private String getDayOfWeek(Calendar calendar) {
-        switch(calendar.get(Calendar.DAY_OF_WEEK)) {
-            case Calendar.MONDAY:
-                return "Monday";
-            case Calendar.TUESDAY:
-                return "Tuesday";
-            case Calendar.WEDNESDAY:
-                return "Wednesday";
-            case Calendar.THURSDAY:
-                return "Thursday";
-            case Calendar.FRIDAY:
-                return "Friday";
-            case Calendar.SATURDAY:
-                return "Saturday";
-        }
-
-        return "Sunday";
-    }
-
-    private String getMonth(Calendar calendar) {
-        switch (calendar.get(Calendar.MONTH)) {
-            case Calendar.JANUARY:
-                return "Jan";
-            case Calendar.FEBRUARY:
-                return "Feb";
-            case Calendar.MARCH:
-                return "Mar";
-            case Calendar.APRIL:
-                return "Apr";
-            case Calendar.MAY:
-                return "May";
-            case Calendar.JUNE:
-                return "Jun";
-            case Calendar.JULY:
-                return "Jul";
-            case Calendar.AUGUST:
-                return "Aug";
-            case Calendar.SEPTEMBER:
-                return "Sep";
-            case Calendar.OCTOBER:
-                return "Oct";
-            case Calendar.NOVEMBER:
-                return "Nov";
-        }
-
-        return "Dec";
-    }
-
-    @PostMapping("/sandwich/lock")
-    public void lockSandwich() {
-        for(User nextUser: userRepository.findAll()) {
-            lockUser(nextUser);
-        }
+    @PostMapping("/sandwich/refresh")
+    public void refreshSandwichs() {
+        refreshCtrl.scheduleRefresh();
     }
 }

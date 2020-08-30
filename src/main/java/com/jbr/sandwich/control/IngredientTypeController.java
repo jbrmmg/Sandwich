@@ -3,7 +3,8 @@ package com.jbr.sandwich.control;
 import com.jbr.sandwich.data.IngredientType;
 import com.jbr.sandwich.data.dtoIngredientType;
 import com.jbr.sandwich.dataaccess.IngredientTypeRepository;
-import io.swagger.models.auth.In;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -12,6 +13,8 @@ import java.util.Optional;
 
 @RestController
 public class IngredientTypeController {
+    private static final Logger LOG = LoggerFactory.getLogger(IngredientTypeController.class);
+
     private final IngredientTypeRepository ingredientTypeRepository;
 
     @Autowired
@@ -43,6 +46,8 @@ public class IngredientTypeController {
             throw new Exception("Id already exists.");
         }
 
+        LOG.info("Create new ingredient type.");
+
         IngredientType newDbType = new IngredientType();
         newDbType.setId(newType.getId());
         newDbType.setOrder(newType.getOrder());
@@ -60,6 +65,8 @@ public class IngredientTypeController {
         if(!existingType.isPresent()) {
             throw new Exception("Invalid ingredient type");
         }
+
+        LOG.info("Update ingredient type.");
 
         existingType.get().setId(newType.getId());
         existingType.get().setOrder(newType.getOrder());

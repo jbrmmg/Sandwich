@@ -5,6 +5,8 @@ import com.jbr.sandwich.data.IngredientType;
 import com.jbr.sandwich.data.dtoIngredient;
 import com.jbr.sandwich.dataaccess.IngredientRepository;
 import com.jbr.sandwich.dataaccess.IngredientTypeRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -13,6 +15,8 @@ import java.util.Optional;
 
 @RestController
 public class IngredientController {
+    private static final Logger LOG = LoggerFactory.getLogger(IngredientController.class);
+
     private final IngredientRepository ingredientRepository;
     private final IngredientTypeRepository ingredientTypeRepository;
 
@@ -47,6 +51,8 @@ public class IngredientController {
             throw new Exception("Invalid ingredient type.");
         }
 
+        LOG.info("Create new ingredient.");
+
         Ingredient dbIngredient = new Ingredient(newIngredient.getName());
         dbIngredient.setType(ingredientType.get());
 
@@ -69,6 +75,8 @@ public class IngredientController {
             throw new Exception("Invalid ingredient type.");
         }
 
+        LOG.info("Update new ingredient.");
+
         currentIngredient.get().setName(newIngredient.getName());
         currentIngredient.get().setType(ingredientType.get());
 
@@ -84,6 +92,8 @@ public class IngredientController {
         if(!currentIngredient.isPresent()) {
             throw new Exception("Invalid ingredient id.");
         }
+
+        LOG.info("Delete ingredient.");
 
         ingredientRepository.delete(currentIngredient.get());
 

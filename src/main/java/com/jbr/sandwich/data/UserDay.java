@@ -1,6 +1,7 @@
 package com.jbr.sandwich.data;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -25,6 +26,11 @@ public class UserDay {
 
     private Boolean locked;
 
+    public UserDay() {
+        sandwich = new ArrayList<>();
+        id = new UserDayId();
+    }
+
     public String getDay() { return this.id.getDay(); }
 
     public int getDate() { return this.id.getDate(); }
@@ -42,4 +48,8 @@ public class UserDay {
     public void setLocked(Boolean locked) {
         this.locked = locked;
     }
+
+    public UserDayId getId() { return this.id; }
+
+    public void setMonth(String month) {this.month = month;}
 }

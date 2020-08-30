@@ -20,7 +20,7 @@ logging.file: /var/log/jbr/Sandwich-DEV.log
 logging:
   level:
     ROOT: INFO
-    com.jbr.middletier: DEBUG
+    com.jbr.sandwich: DEBUG
   file:
     max-history: 3
     max-size: 100MB

@@ -21,7 +21,7 @@ logging.file: /var/log/jbr/Sandwich-PDN.log
 logging:
   level:
     ROOT: INFO
-    com.jbr.middletier: INFO
+    com.jbr.sandwich: INFO
   file:
     max-history: 3
     max-size: 100MB

@@ -1,7 +1,7 @@
 logging:
   level:
     ROOT: INFO
-    com.jbr.middletier: DEBUG
+    com.jbr.sandwich: DEBUG
 
 spring:
   datasource:

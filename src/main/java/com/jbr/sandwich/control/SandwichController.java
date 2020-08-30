@@ -79,10 +79,11 @@ public class SandwichController {
         // Create days for a week on monday.
         Calendar calendar = Calendar.getInstance();
         for(int i = 0; i < 2; i++) {
+            calendar.add(Calendar.DATE, 1);
+
             while (calendar.get(Calendar.DAY_OF_WEEK) != Calendar.MONDAY) {
                 calendar.add(Calendar.DATE, 1);
             }
-            calendar.add(Calendar.DATE, 1);
         }
 
         for(int i = 0; i < 5; i++) {

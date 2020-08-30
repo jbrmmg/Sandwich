@@ -13,7 +13,7 @@
             "name": "brown bread",
             "type": {
               "id": "bread",
-              "selection": "one"
+              "selection": "ONE"
             }
           },
           {
@@ -21,7 +21,7 @@
             "name": "ham",
             "type": {
               "id": "filling",
-              "selection": "many"
+              "selection": "MANY"
             }
           }
         ]
@@ -36,7 +36,7 @@
             "name": "brown bread",
             "type": {
               "id": "bread",
-              "selection": "one"
+              "selection": "ONE"
             }
           },
           {
@@ -44,7 +44,7 @@
             "name": "cheese",
             "type": {
               "id": "filling",
-              "selection": "many"
+              "selection": "MANY"
             }
           }
         ]

@@ -4,7 +4,7 @@
     "name":"butter",
     "type": {
       "id": "spread",
-      "selection": "yesno"
+      "selection": "YES_OR_NO"
     }
   }
 ]

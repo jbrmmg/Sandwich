@@ -12,7 +12,7 @@ public class IngredientType {
     @Id
     private String id;
 
-    private int selectionId;
+    private SelectionType selectionId;
 
     @Column(name="`order`")
     private int order;
@@ -25,37 +25,23 @@ public class IngredientType {
         this.id = id;
     }
 
-    public int getSelectionId() {
+    public SelectionType getSelectionId() {
         return selectionId;
     }
 
-    public void setSelectionId(int selectionId) {
+    public void setSelectionId(SelectionType selectionId) {
         this.selectionId = selectionId;
     }
 
     public String getSelection() {
         switch(this.selectionId) {
-            case 0:
-                return "one";
-            case 1:
-                return "yesno";
-        }
-
-        return "many";
-    }
-
-    public void setSelection(SelectionType selection) {
-        switch (selection) {
             case ONE:
-                this.selectionId = 0;
-                break;
+                return "ONE";
             case YES_OR_NO:
-                this.selectionId = 1;
-                break;
-            case MANY:
-                this.selectionId = 2;
-                break;
+                return "YES_OR_NO";
         }
+
+        return "MANY";
     }
 
     public int getOrder() {

@@ -14,7 +14,7 @@ export class IngredientsService {
     private readonly TEST_TYPE_URL = 'api/ingredient/types.json';
     private readonly TEST_INGREDIENTS_URL = 'api/ingredient/ingredients.json';
 
-    private readonly TYPE_URL = 'ingredients/type';
+    private readonly TYPE_URL = 'ingredients/types';
     private readonly INGREDIENT_URL = 'ingredients';
 
     private static handleError(err: HttpErrorResponse) {

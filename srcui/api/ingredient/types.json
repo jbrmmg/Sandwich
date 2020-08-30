@@ -1,22 +1,22 @@
 [
   {
     "id":"bread",
-    "selection": "one",
+    "selection": "ONE",
     "order": 1
   },
   {
     "id":"spread",
-    "selection": "yesno",
+    "selection": "YES_OR_NO",
     "order": 2
   },
   {
     "id":"filling",
-    "selection": "many",
+    "selection": "MANY",
     "order": 3
   },
   {
     "id":"addon",
-    "selection": "many",
+    "selection": "MANY",
     "order": 4
   }
 ]

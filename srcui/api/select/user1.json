@@ -4,6 +4,15 @@
   "email": "test1@jbrmmmg.me.uk",
   "days": [
     {
+      "day": "Wednesday",
+      "month": "Sep",
+      "locked": false,
+      "date": 2,
+      "sandwich": {
+        "ingredients": []
+      }
+    },
+    {
       "day": "Monday",
       "month": "Aug",
       "locked": false,
@@ -14,7 +23,7 @@
             "name": "brown bread",
             "type": {
               "id": "bread",
-              "selection": "one"
+              "selection": "ONE"
             }
           },
           {
@@ -22,7 +31,7 @@
             "name": "butter",
             "type": {
               "id": "spread",
-              "selection": "yesno"
+              "selection": "YES_OR_NO"
             }
           },
           {
@@ -30,7 +39,7 @@
             "name": "cheese",
             "type": {
               "id": "filling",
-              "selection": "many"
+              "selection": "MANY"
             }
           }
         ]
@@ -45,16 +54,7 @@
       }
     },
     {
-      "day": "Wednesday",
-      "month": "Sep",
-      "locked": false,
-      "date": 2,
-      "sandwich": {
-        "ingredients": []
-      }
-    },
-    {
-      "day": "Thursday",
+      "day": "Friday",
       "month": "Sep",
       "locked": false,
       "date": 3,
@@ -63,7 +63,7 @@
       }
     },
     {
-      "day": "Friday",
+      "day": "Thursday",
       "month": "Sep",
       "locked": false,
       "date": 3,

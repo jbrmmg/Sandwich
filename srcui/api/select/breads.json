@@ -4,7 +4,7 @@
     "name":"brown bread",
     "type": {
       "id": "bread",
-      "selection": "one"
+      "selection": "ONE"
     }
   },
   {
@@ -12,7 +12,7 @@
     "name":"white bread",
     "type": {
       "id": "bread",
-      "selection": "one"
+      "selection": "ONE"
     }
   },
   {
@@ -20,7 +20,7 @@
     "name":"seeded bread",
     "type": {
       "id": "bread",
-      "selection": "one"
+      "selection": "ONE"
     }
   }
 ]

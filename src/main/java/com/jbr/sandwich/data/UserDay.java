@@ -23,6 +23,8 @@ public class UserDay {
 
     private String month;
 
+    private Boolean locked;
+
     public String getDay() { return this.id.getDay(); }
 
     public int getDate() { return this.id.getDate(); }
@@ -32,4 +34,12 @@ public class UserDay {
     public String getMonth() { return this.month; }
 
     public List<Ingredient> getSandwich() { return this.sandwich; }
+
+    public Boolean getLocked() {
+        return locked;
+    }
+
+    public void setLocked(Boolean locked) {
+        this.locked = locked;
+    }
 }

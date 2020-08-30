@@ -24,6 +24,27 @@ export class SelectComponent implements OnInit {
         this.moveEnabled = false;
     }
 
+    private dayToInt(day: string): number {
+        switch(day.toLocaleLowerCase()) {
+            case "monday":
+                return 1;
+            case "tuesday":
+                return 2;
+            case "wednesday":
+                return 3;
+            case "thursday":
+                return 4;
+            case "friday":
+                return 5;
+            case "saturday":
+                return 6;
+            case "sunday":
+                return 7;
+        }
+
+        return 0;
+    }
+
     ngOnInit() {
         this.route.params.subscribe( params => {
             this._userService.getUser(params['id']).subscribe(
@@ -41,6 +62,15 @@ export class SelectComponent implements OnInit {
                             if (!nextDay.locked) {
                                 this.selectedDayIndex = currentIndex;
                                 this.moveEnabled = true;
+                                this.user.days.sort( (d1,d2) => {
+                                    if( this.dayToInt(d1.day) > this.dayToInt(d2.day) ) {
+                                        return 1;
+                                    } else if ( this.dayToInt(d1.day) === this.dayToInt(d2.day) ) {
+                                        return 0;
+                                    }
+
+                                    return -1;
+                                } );
                                 break;
                             }
                             currentIndex++;
@@ -171,11 +201,11 @@ export class SelectComponent implements OnInit {
 
     selectIngredient(ingredient: IIngredient) {
         switch(ingredient.type.selection) {
-            case 'one':
+            case 'ONE':
                 this.selectOneIngredient(ingredient);
                 break;
-            case 'many':
-            case 'yesno':
+            case 'MANY':
+            case 'YES_OR_NO':
                 this.selectManyIngredient(ingredient);
                 break;
         }

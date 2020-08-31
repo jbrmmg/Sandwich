@@ -4,6 +4,7 @@ import com.jbr.sandwich.data.*;
 import com.jbr.sandwich.dataaccess.IngredientRepository;
 import com.jbr.sandwich.dataaccess.UserDayRepository;
 import com.jbr.sandwich.dataaccess.UserRepository;
+import com.jbr.sandwich.exception.SandwichObjectNotFound;
 import com.jbr.sandwich.schedule.RefreshCtrl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -25,11 +26,11 @@ public class SandwichController {
 
     @Autowired
     public SandwichController(UserRepository userRepository,
-                              UserDayRepository userDayepository,
+                              UserDayRepository userDayRepository,
                               IngredientRepository ingredientRepository,
                               RefreshCtrl refreshCtrl) {
         this.userRepository = userRepository;
-        this.userDayRepository = userDayepository;
+        this.userDayRepository = userDayRepository;
         this.ingredientRepository = ingredientRepository;
         this.refreshCtrl = refreshCtrl;
     }
@@ -38,7 +39,7 @@ public class SandwichController {
     public void updateSandwich(@RequestParam String user,
                                @RequestParam String day,
                                @RequestParam int date,
-                               @RequestBody List<dtoIngredient> ingredients) throws Exception {
+                               @RequestBody List<dtoIngredient> ingredients) {
         LOG.info("Save sandwich - {} {} {}", user, day, date);
 
         // Load the day specified.
@@ -49,7 +50,7 @@ public class SandwichController {
         Optional<UserDay> loadedDay = userDayRepository.findById(userDayId);
 
         if(!loadedDay.isPresent()) {
-            throw new Exception("Cannot find the day specified.");
+            throw new SandwichObjectNotFound("user day", userDayId.toString());
         }
 
         // Update the ingredients.
@@ -61,11 +62,14 @@ public class SandwichController {
             loadedIngredient.ifPresent(ingredient -> loadedDay.get().getSandwich().add(ingredient));
         }
 
+        LOG.info("Update Sandwich {}", loadedDay.get());
+
         userDayRepository.save(loadedDay.get());
     }
 
     @PostMapping("/sandwich/refresh")
-    public void refreshSandwichs() {
+    public void refreshSandwiches() {
+        LOG.info("Refresh Sandwiches");
         refreshCtrl.scheduleRefresh();
     }
 
@@ -83,6 +87,7 @@ public class SandwichController {
         newResult.setName(ingredient.getName());
 
         ingredients.add(newResult);
+        LOG.info("Add ingredient {}", newResult);
     }
 
     private void checkIngredients(UserDay userDay, List<dtoIngredient> ingredients) {
@@ -98,6 +103,8 @@ public class SandwichController {
     @GetMapping("requiredingredients")
     public @ResponseBody List<dtoIngredient> getRequiredIngredients() {
         List<dtoIngredient> result = new ArrayList<>();
+
+        LOG.info("Get required ingredients.");
 
         for(User nextUser: this.userRepository.findAll()) {
             for(UserDay nextUserDay: nextUser.getDays()) {

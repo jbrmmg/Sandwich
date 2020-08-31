@@ -3,6 +3,7 @@ package com.jbr.sandwich.data;
 import javax.persistence.*;
 import java.util.List;
 
+@SuppressWarnings("JpaDataSourceORMInspection")
 @Entity
 @Table(name="user")
 public class User {
@@ -45,5 +46,15 @@ public class User {
 
     public void setDays(List<UserDay> days) {
         this.days = days;
+    }
+
+    @Override
+    public String toString() {
+        return String.format(
+                "[User: %s %s %s [%s]]",
+                id,
+                name,
+                email,
+                String.join(",", days.toString()) );
     }
 }

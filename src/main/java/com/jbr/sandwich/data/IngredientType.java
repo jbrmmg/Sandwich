@@ -51,4 +51,9 @@ public class IngredientType {
     public void setOrder(int order) {
         this.order = order;
     }
+
+    @Override
+    public String toString() {
+        return String.format("[Type: %s %s %d]", id, selectionId.name(), order);
+    }
 }

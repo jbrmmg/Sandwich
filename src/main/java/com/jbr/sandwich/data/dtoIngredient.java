@@ -39,4 +39,9 @@ public class dtoIngredient {
     }
 
     public void incrementCount() { this.count++; }
+
+    @Override
+    public String toString() {
+        return String.format("%d %s %s %d", id, name, type, count);
+    }
 }

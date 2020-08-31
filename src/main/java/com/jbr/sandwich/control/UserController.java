@@ -3,6 +3,8 @@ package com.jbr.sandwich.control;
 import com.jbr.sandwich.data.User;
 import com.jbr.sandwich.data.dtoUser;
 import com.jbr.sandwich.dataaccess.UserRepository;
+import com.jbr.sandwich.exception.SandwichObjectAlreadyExists;
+import com.jbr.sandwich.exception.SandwichObjectNotFound;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,21 +29,26 @@ public class UserController {
     }
 
     @GetMapping("/user")
-    public @ResponseBody User getUser(@RequestParam String id) throws Exception {
+    public @ResponseBody User getUser(@RequestParam String id) {
         Optional<User> currentUser = userRepository.findById(id);
 
         if(!currentUser.isPresent()) {
-            throw new Exception("Failed to find the user");
+            throw new SandwichObjectNotFound("user", id);
         }
+
+        LOG.info("Get User {}", currentUser);
 
         return currentUser.get();
     }
 
-    @PostMapping("/user") User createUser(@RequestBody dtoUser user) throws Exception {
+    @PostMapping("/user")
+    public User createUser(@RequestBody dtoUser user) {
+        LOG.info("Create new user {}", user);
+
         Optional<User> currentUser = userRepository.findById(user.getId());
 
         if(currentUser.isPresent()) {
-            throw new Exception("User already exist");
+            throw new SandwichObjectAlreadyExists("user", user.getId());
         }
 
         User newUser = new User();
@@ -55,15 +62,17 @@ public class UserController {
     }
 
     @PutMapping("/user")
-    public @ResponseBody User updateUser(@RequestBody dtoUser user) throws Exception {
+    public @ResponseBody User updateUser(@RequestBody dtoUser user) {
         Optional<User> currentUser = userRepository.findById(user.getId());
 
         if(!currentUser.isPresent()) {
-            throw new Exception("Failed to find the user");
+            throw new SandwichObjectNotFound("user", user.getId());
         }
 
         currentUser.get().setName(user.getName());
         currentUser.get().setEmail(user.getEmail());
+
+        LOG.info("Update user {}", user);
 
         userRepository.save(currentUser.get());
 
@@ -71,12 +80,14 @@ public class UserController {
     }
 
     @DeleteMapping("/user")
-    public @ResponseBody User deleteUser(@RequestBody dtoUser user) throws Exception {
+    public @ResponseBody User deleteUser(@RequestBody dtoUser user) {
         Optional<User> currentUser = userRepository.findById(user.getId());
 
         if(!currentUser.isPresent()) {
-            throw new Exception("Failed to find the user");
+            throw new SandwichObjectNotFound("user", user.getId());
         }
+
+        LOG.info("Delete user: {}", user);
         userRepository.delete(currentUser.get());
 
         return currentUser.get();

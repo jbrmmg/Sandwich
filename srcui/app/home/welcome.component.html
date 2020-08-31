@@ -17,6 +17,11 @@
         </div>
       </div>
 
+      <h4>Required Ingredients</h4>
+      <div *ngFor="let nextIngredient of ingredients">
+          <a>{{nextIngredient.name}} x {{nextIngredient.count}}</a>
+      </div>
+
       <div class="text-center">Developed by:</div>
       <div class="text-center">
         <h3>Jason Brown</h3>

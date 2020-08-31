@@ -3,12 +3,14 @@ package com.jbr.sandwich.control;
 import com.jbr.sandwich.data.*;
 import com.jbr.sandwich.dataaccess.IngredientRepository;
 import com.jbr.sandwich.dataaccess.UserDayRepository;
+import com.jbr.sandwich.dataaccess.UserRepository;
 import com.jbr.sandwich.schedule.RefreshCtrl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -16,14 +18,17 @@ import java.util.Optional;
 public class SandwichController {
     final static private Logger LOG = LoggerFactory.getLogger(SandwichController.class);
 
+    private final UserRepository userRepository;
     private final UserDayRepository userDayRepository;
     private final IngredientRepository ingredientRepository;
     private final RefreshCtrl refreshCtrl;
 
     @Autowired
-    public SandwichController(UserDayRepository userDayepository,
+    public SandwichController(UserRepository userRepository,
+                              UserDayRepository userDayepository,
                               IngredientRepository ingredientRepository,
                               RefreshCtrl refreshCtrl) {
+        this.userRepository = userRepository;
         this.userDayRepository = userDayepository;
         this.ingredientRepository = ingredientRepository;
         this.refreshCtrl = refreshCtrl;
@@ -62,5 +67,40 @@ public class SandwichController {
     @PostMapping("/sandwich/refresh")
     public void refreshSandwichs() {
         refreshCtrl.scheduleRefresh();
+    }
+
+    private void checkIngredients(UserDay userDay, List<dtoIngredient> ingredients) {
+        if(userDay.getLocked()) {
+            return;
+        }
+
+        for(Ingredient nextIngredient: userDay.getSandwich()) {
+            for(dtoIngredient nextResultIngredient: ingredients) {
+                if(nextResultIngredient.getId().equals(nextIngredient.getId())) {
+                    nextResultIngredient.incrementCount();
+                    return;
+                }
+            }
+
+            dtoIngredient newResult = new dtoIngredient();
+            newResult.setCount(1);
+            newResult.setId(nextIngredient.getId());
+            newResult.setName(nextIngredient.getName());
+
+            ingredients.add(newResult);
+        }
+    }
+
+    @GetMapping("requiredingredients")
+    public @ResponseBody List<dtoIngredient> getRequiredIngredients() {
+        List<dtoIngredient> result = new ArrayList<>();
+
+        for(User nextUser: this.userRepository.findAll()) {
+            for(UserDay nextUserDay: nextUser.getDays()) {
+                checkIngredients(nextUserDay,result);
+            }
+        }
+
+        return result;
     }
 }

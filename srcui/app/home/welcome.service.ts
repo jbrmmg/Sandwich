@@ -4,6 +4,7 @@ import {Observable, throwError} from 'rxjs';
 import {SelectUser} from '../select/select.user';
 import {environment} from '../../environments/environment';
 import {catchError, tap} from 'rxjs/operators';
+import {IIngredient} from '../management/ingredient/ingredient';
 
 @Injectable({
     providedIn: 'root'
@@ -25,6 +26,13 @@ export class WelcomeService {
 
     getUsers(): Observable<SelectUser[]> {
         return this._http.get<SelectUser[]>(environment.production ? `users` : `api/welcome/users.json` ).pipe (
+            tap(data => console.log(`All ${JSON.stringify(data)}`)),
+            catchError( err => WelcomeService.handleError(err))
+        );
+    }
+
+    getRequiredIngredients(): Observable<IIngredient[]> {
+        return this._http.get<IIngredient[]>(environment.production ? `requiredingredients` : 'api/welcome/ingredients.json' ).pipe (
             tap(data => console.log(`All ${JSON.stringify(data)}`)),
             catchError( err => WelcomeService.handleError(err))
         );

@@ -1,0 +1,56 @@
+[
+  {
+    "id": 1,
+    "name": "Cheese",
+    "type": null,
+    "count": 2
+  },
+  {
+    "id": 4,
+    "name": "White Bread",
+    "type": null,
+    "count": 4
+  },
+  {
+    "id": 3,
+    "name": "Brown Bread",
+    "type": null,
+    "count": 5
+  },
+  {
+    "id": 10,
+    "name": "Lettuce",
+    "type": null,
+    "count": 1
+  },
+  {
+    "id": 13,
+    "name": "Cucumber",
+    "type": null,
+    "count": 2
+  },
+  {
+    "id": 14,
+    "name": "Onion",
+    "type": null,
+    "count": 1
+  },
+  {
+    "id": 5,
+    "name": "Seeded Bread",
+    "type": null,
+    "count": 3
+  },
+  {
+    "id": 9,
+    "name": "Tomato",
+    "type": null,
+    "count": 1
+  },
+  {
+    "id": 6,
+    "name": "Bagel",
+    "type": null,
+    "count": 1
+  }
+]

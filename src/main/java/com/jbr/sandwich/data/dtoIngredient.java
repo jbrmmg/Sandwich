@@ -4,6 +4,7 @@ public class dtoIngredient {
     private Long id;
     private String name;
     private dtoIngredientType type;
+    private Integer count;
 
     public Long getId() {
         return id;
@@ -28,4 +29,14 @@ public class dtoIngredient {
     public void setType(dtoIngredientType type) {
         this.type = type;
     }
+
+    public Integer getCount() {
+        return count;
+    }
+
+    public void setCount(Integer count) {
+        this.count = count;
+    }
+
+    public void incrementCount() { this.count++; }
 }

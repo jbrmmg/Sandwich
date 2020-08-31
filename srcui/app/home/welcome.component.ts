@@ -10,6 +10,7 @@ import {IIngredient} from '../management/ingredient/ingredient';
 })
 export class WelcomeComponent implements OnInit {
   users: SelectUser[];
+  ingredients: IIngredient[];
 
   constructor(private readonly _welcomeService: WelcomeService,
               private readonly _userService: SelectService ) {
@@ -54,6 +55,12 @@ export class WelcomeComponent implements OnInit {
           }
           console.log(`Finished get users.`)
         }
+    );
+
+    this._welcomeService.getRequiredIngredients().subscribe(
+      ingredients => this.ingredients = ingredients,
+        error => console.log(`Failed to get the users ${error}.`),
+        () => console.log(`Finished get users.`)
     );
   }
 }

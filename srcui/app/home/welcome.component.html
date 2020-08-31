@@ -4,8 +4,17 @@
       <div class="text-center">
         <img src="./assets/images/logo.svg"
              class="img-responsive center-block logo"
-             (click)="onClick()"
              alt="Sandwich"/>
+      </div>
+
+      <div *ngFor="let nextUser of users">
+        <h4>{{nextUser.name}}</h4>
+        <div *ngFor="let nextDay of nextUser.days">
+          <div *ngIf="nextDay.locked && nextDay.sandwich.length > 0">
+            <b>{{nextDay.day}}: </b>
+            <a>{{ingredientString(nextDay.sandwich)}}</a>
+          </div>
+        </div>
       </div>
 
       <div class="text-center">Developed by:</div>

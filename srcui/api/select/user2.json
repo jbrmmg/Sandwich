@@ -53,25 +53,19 @@
       "day": "Wednesday",
       "month": "September",
       "date": 2,
-      "sandwich": {
-        "ingredients": []
-      }
+      "sandwich": []
     },
     {
       "day": "Thursday",
       "month": "September",
       "date": 3,
-      "sandwich": {
-        "ingredients": []
-      }
+      "sandwich": []
     },
     {
       "day": "Friday",
       "month": "September",
       "date": 3,
-      "sandwich": {
-        "ingredients": []
-      }
+      "sandwich": []
     }
   ]
 }

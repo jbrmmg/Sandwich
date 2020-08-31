@@ -8,9 +8,7 @@
       "month": "Sep",
       "locked": false,
       "date": 2,
-      "sandwich": {
-        "ingredients": []
-      }
+      "sandwich": []
     },
     {
       "day": "Monday",
@@ -49,36 +47,28 @@
       "month": "Sep",
       "locked": false,
       "date": 1,
-      "sandwich": {
-        "ingredients": []
-      }
+      "sandwich": []
     },
     {
       "day": "Friday",
       "month": "Sep",
       "locked": false,
       "date": 3,
-      "sandwich": {
-        "ingredients": []
-      }
+      "sandwich": []
     },
     {
       "day": "Thursday",
       "month": "Sep",
       "locked": false,
       "date": 3,
-      "sandwich": {
-        "ingredients": []
-      }
+      "sandwich": []
     },
     {
       "day": "Monday",
       "month": "Aug",
       "locked": true,
       "date": 25,
-      "sandwich": {
-        "ingredients": []
-      }
+      "sandwich": []
     }
   ]
 }

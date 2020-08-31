@@ -24,6 +24,27 @@ export class SelectService {
     constructor (private readonly _http: HttpClient) {
     }
 
+    public dayToInt(day: string): number {
+        switch(day.toLocaleLowerCase()) {
+            case "monday":
+                return 1;
+            case "tuesday":
+                return 2;
+            case "wednesday":
+                return 3;
+            case "thursday":
+                return 4;
+            case "friday":
+                return 5;
+            case "saturday":
+                return 6;
+            case "sunday":
+                return 7;
+        }
+
+        return 0;
+    }
+
     getUser (id: string): Observable<SelectUser> {
         return this._http.get<SelectUser>(environment.production ? `user?id=${id}` : `api/select/user${id}.json` ).pipe (
             tap(data => console.log(`All ${JSON.stringify(data)}`)),

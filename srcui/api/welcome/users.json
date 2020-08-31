@@ -1,0 +1,148 @@
+[
+  {
+    "id": "1",
+    "name": "Test User 1",
+    "email": "test1@jbrmmmg.me.uk",
+    "days": [
+      {
+        "day": "Wednesday",
+        "month": "Sep",
+        "locked": false,
+        "date": 2,
+        "sandwich": {
+          "ingredients": []
+        }
+      },
+      {
+        "day": "Monday",
+        "month": "Aug",
+        "locked": false,
+        "date": 31,
+        "sandwich": [
+          {
+            "id":  1,
+            "name": "brown bread",
+            "type": {
+              "id": "bread",
+              "selection": "ONE"
+            }
+          },
+          {
+            "id":  5,
+            "name": "butter",
+            "type": {
+              "id": "spread",
+              "selection": "YES_OR_NO"
+            }
+          },
+          {
+            "id":  7,
+            "name": "cheese",
+            "type": {
+              "id": "filling",
+              "selection": "MANY"
+            }
+          }
+        ]
+      },
+      {
+        "day": "Tuesday",
+        "month": "Sep",
+        "locked": false,
+        "date": 1,
+        "sandwich": {
+          "ingredients": []
+        }
+      },
+      {
+        "day": "Friday",
+        "month": "Sep",
+        "locked": false,
+        "date": 3,
+        "sandwich": {
+          "ingredients": []
+        }
+      },
+      {
+        "day": "Thursday",
+        "month": "Sep",
+        "locked": false,
+        "date": 3,
+        "sandwich": {
+          "ingredients": []
+        }
+      },
+      {
+        "day": "Tuesday",
+        "month": "Aug",
+        "locked": true,
+        "date": 25,
+        "sandwich":  [
+            {
+              "id":  1,
+              "name": "brown bread",
+              "type": {
+                "id": "bread",
+                "selection": "ONE"
+              }
+            },
+            {
+              "id":  5,
+              "name": "butter",
+              "type": {
+                "id": "spread",
+                "selection": "YES_OR_NO"
+              }
+            },
+            {
+              "id":  7,
+              "name": "cheese",
+              "type": {
+                "id": "filling",
+                "selection": "MANY"
+              }
+            }
+          ]
+      },
+      {
+        "day": "Wednesday",
+        "month": "Aug",
+        "locked": true,
+        "date": 25,
+        "sandwich": []
+      },
+      {
+        "day": "Monday",
+        "month": "Aug",
+        "locked": true,
+        "date": 25,
+        "sandwich": [
+          {
+            "id":  1,
+            "name": "brown bread",
+            "type": {
+              "id": "bread",
+              "selection": "ONE"
+            }
+          },
+          {
+            "id":  5,
+            "name": "butter",
+            "type": {
+              "id": "spread",
+              "selection": "YES_OR_NO"
+            }
+          },
+          {
+            "id":  7,
+            "name": "cheese",
+            "type": {
+              "id": "filling",
+              "selection": "MANY"
+            }
+          }
+        ]
+      }
+    ]
+  }
+]

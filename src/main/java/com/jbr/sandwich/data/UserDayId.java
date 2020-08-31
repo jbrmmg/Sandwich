@@ -32,4 +32,9 @@ public class UserDayId implements Serializable {
     public void setUser(String user) {
         this.user = user;
     }
+
+    @Override
+    public String toString() {
+        return String.format("[UserDayId: %s %d %s]", day, date, user);
+    }
 }

@@ -3,6 +3,8 @@ package com.jbr.sandwich.control;
 import com.jbr.sandwich.data.IngredientType;
 import com.jbr.sandwich.data.dtoIngredientType;
 import com.jbr.sandwich.dataaccess.IngredientTypeRepository;
+import com.jbr.sandwich.exception.SandwichObjectAlreadyExists;
+import com.jbr.sandwich.exception.SandwichObjectNotFound;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,25 +30,27 @@ public class IngredientTypeController {
     }
 
     @GetMapping("/ingredients/type")
-    public @ResponseBody IngredientType getIngredientType(@RequestParam String id) throws Exception {
+    public @ResponseBody IngredientType getIngredientType(@RequestParam String id) {
         Optional<IngredientType> currentType = ingredientTypeRepository.findById(id);
 
         if(!currentType.isPresent()) {
-            throw new Exception("Invalid id for ingredient type.");
+            throw new SandwichObjectNotFound("ingredient", id);
         }
+
+        LOG.info("Get type: {}", currentType.get());
 
         return currentType.get();
     }
 
     @PostMapping("/ingredients/type")
-    public @ResponseBody IngredientType createIngredientType(@RequestBody dtoIngredientType newType) throws Exception {
+    public @ResponseBody IngredientType createIngredientType(@RequestBody dtoIngredientType newType) {
         Optional<IngredientType> existingType = ingredientTypeRepository.findById(newType.getId());
 
         if(existingType.isPresent()) {
-            throw new Exception("Id already exists.");
+            throw new SandwichObjectAlreadyExists("ingredient type", newType.getId());
         }
 
-        LOG.info("Create new ingredient type.");
+        LOG.info("Create new ingredient type. {}", newType);
 
         IngredientType newDbType = new IngredientType();
         newDbType.setId(newType.getId());
@@ -59,20 +63,35 @@ public class IngredientTypeController {
     }
 
     @PutMapping("/ingredients/type")
-    public @ResponseBody IngredientType updateIngredientType(@RequestBody dtoIngredientType newType) throws Exception {
+    public @ResponseBody IngredientType updateIngredientType(@RequestBody dtoIngredientType newType)  {
         Optional<IngredientType> existingType = ingredientTypeRepository.findById(newType.getId());
 
         if(!existingType.isPresent()) {
-            throw new Exception("Invalid ingredient type");
+            throw new SandwichObjectNotFound("ingredient type", newType.getId());
         }
 
-        LOG.info("Update ingredient type.");
+        LOG.info("Update ingredient type {}.", newType);
 
         existingType.get().setId(newType.getId());
         existingType.get().setOrder(newType.getOrder());
         existingType.get().setSelectionId(newType.getSelection());
 
         ingredientTypeRepository.save(existingType.get());
+
+        return existingType.get();
+    }
+
+    @DeleteMapping("/ingredients/type")
+    public @ResponseBody IngredientType deleteIngredientType(@RequestBody dtoIngredientType deleteType) {
+        Optional<IngredientType> existingType = ingredientTypeRepository.findById(deleteType.getId());
+
+        if(!existingType.isPresent()) {
+            throw new SandwichObjectNotFound("ingredient type", deleteType.getId());
+        }
+
+        LOG.info("Delete ingredient type {}", deleteType);
+
+        ingredientTypeRepository.delete(existingType.get());
 
         return existingType.get();
     }

@@ -4,6 +4,7 @@ import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
+@SuppressWarnings({"JpaDataSourceORMInspection", "FieldMayBeFinal"})
 @Entity
 @Table(name="user_day")
 public class UserDay {
@@ -52,4 +53,14 @@ public class UserDay {
     public UserDayId getId() { return this.id; }
 
     public void setMonth(String month) {this.month = month;}
+
+    @Override
+    public String toString() {
+        return String.format(
+                "[User: %s %s %s [%s]]",
+                id,
+                month,
+                locked,
+                String.join(",", sandwich.toString()) );
+    }
 }

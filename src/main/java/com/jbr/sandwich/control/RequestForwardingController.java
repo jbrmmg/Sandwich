@@ -3,7 +3,7 @@ package com.jbr.sandwich.control;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-@SuppressWarnings("MVCPathVariableInspection")
+@SuppressWarnings({"MVCPathVariableInspection", "RegExpRedundantEscape"})
 @Controller
 public class RequestForwardingController {
     @RequestMapping(value = "/**/{[path:[^\\.]*}")

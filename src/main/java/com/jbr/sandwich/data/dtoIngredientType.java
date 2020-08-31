@@ -28,4 +28,9 @@ public class dtoIngredientType {
     public void setSelection(IngredientType.SelectionType selection) {
         this.selection = selection;
     }
+
+    @Override
+    public String toString() {
+        return String.format("%s %d %s", id, order, selection.name());
+    }
 }

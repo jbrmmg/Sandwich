@@ -1,7 +1,5 @@
 package com.jbr.sandwich.data;
 
-import java.util.List;
-
 public class dtoUser {
     private String id;
     private String name;
@@ -29,5 +27,10 @@ public class dtoUser {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    @Override
+    public String toString() {
+        return String.format("%s %s (%s)", id, name, email);
     }
 }

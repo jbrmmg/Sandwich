@@ -5,6 +5,8 @@ import com.jbr.sandwich.data.IngredientType;
 import com.jbr.sandwich.data.dtoIngredient;
 import com.jbr.sandwich.dataaccess.IngredientRepository;
 import com.jbr.sandwich.dataaccess.IngredientTypeRepository;
+import com.jbr.sandwich.exception.SandwichObjectAlreadyExists;
+import com.jbr.sandwich.exception.SandwichObjectNotFound;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,28 +35,35 @@ public class IngredientController {
     }
 
     @GetMapping("/ingredient")
-    public Ingredient getIngredient(@RequestParam Long id) throws Exception {
+    public Ingredient getIngredient(@RequestParam Long id) {
         Optional<Ingredient> currentIngredient = ingredientRepository.findById(id);
 
         if(!currentIngredient.isPresent()) {
-            throw new Exception("Ingredient not found.");
+            throw new SandwichObjectNotFound("ingredient", id.toString());
         }
+
+        LOG.info("Get Ingredient: {}", currentIngredient.get());
 
         return currentIngredient.get();
     }
 
     @PostMapping("/ingredient")
-    public Ingredient createIngredient(@RequestBody dtoIngredient newIngredient) throws Exception {
+    public Ingredient createIngredient(@RequestBody dtoIngredient newIngredient) {
         Optional<IngredientType> ingredientType = ingredientTypeRepository.findById(newIngredient.getType().getId());
 
         if(!ingredientType.isPresent()) {
-            throw new Exception("Invalid ingredient type.");
+            throw new SandwichObjectNotFound("ingredient type", newIngredient.getId().toString());
         }
 
-        LOG.info("Create new ingredient.");
+        List<Ingredient> existing = ingredientRepository.findByName(newIngredient.getName());
+        if(existing.size() > 0) {
+            throw new SandwichObjectAlreadyExists("ingredient", newIngredient.getName());
+        }
 
         Ingredient dbIngredient = new Ingredient(newIngredient.getName());
         dbIngredient.setType(ingredientType.get());
+
+        LOG.info("Create new ingredient. {}", dbIngredient);
 
         ingredientRepository.save(dbIngredient);
 
@@ -62,23 +71,23 @@ public class IngredientController {
     }
 
     @PutMapping("/ingredient")
-    public Ingredient updateIngredient(@RequestBody dtoIngredient newIngredient) throws Exception {
-        Optional<Ingredient> currentIngredient = ingredientRepository.findById(newIngredient.getId());
+    public Ingredient updateIngredient(@RequestBody dtoIngredient updateIngredient) {
+        Optional<Ingredient> currentIngredient = ingredientRepository.findById(updateIngredient.getId());
 
         if(!currentIngredient.isPresent()) {
-            throw new Exception("Invalid ingredient id.");
+            throw new SandwichObjectNotFound("ingredient", updateIngredient.getId().toString());
         }
 
-        Optional<IngredientType> ingredientType = ingredientTypeRepository.findById(newIngredient.getType().getId());
+        Optional<IngredientType> ingredientType = ingredientTypeRepository.findById(updateIngredient.getType().getId());
 
         if(!ingredientType.isPresent()) {
-            throw new Exception("Invalid ingredient type.");
+            throw new SandwichObjectNotFound("ingredient type", updateIngredient.getType().getId());
         }
 
-        LOG.info("Update new ingredient.");
-
-        currentIngredient.get().setName(newIngredient.getName());
+        currentIngredient.get().setName(updateIngredient.getName());
         currentIngredient.get().setType(ingredientType.get());
+
+        LOG.info("Update ingredient. {}", currentIngredient.get());
 
         ingredientRepository.save(currentIngredient.get());
 
@@ -86,14 +95,14 @@ public class IngredientController {
     }
 
     @DeleteMapping("/ingredient")
-    public Ingredient deleteIngredient(@RequestBody dtoIngredient deleteIngredient) throws Exception {
+    public Ingredient deleteIngredient(@RequestBody dtoIngredient deleteIngredient) {
         Optional<Ingredient> currentIngredient = ingredientRepository.findById(deleteIngredient.getId());
 
         if(!currentIngredient.isPresent()) {
-            throw new Exception("Invalid ingredient id.");
+            throw new SandwichObjectNotFound("ingredient", deleteIngredient.getId().toString());
         }
 
-        LOG.info("Delete ingredient.");
+        LOG.info("Delete ingredient. {}", currentIngredient.get());
 
         ingredientRepository.delete(currentIngredient.get());
 

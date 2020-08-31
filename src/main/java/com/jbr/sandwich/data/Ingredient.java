@@ -2,6 +2,7 @@ package com.jbr.sandwich.data;
 
 import javax.persistence.*;
 
+@SuppressWarnings({"JpaDataSourceORMInspection"})
 @Entity
 public class Ingredient {
     @Id
@@ -43,6 +44,6 @@ public class Ingredient {
 
     @Override
     public String toString() {
-        return String.format("Ingredient: %d %s", id, name);
+        return String.format("[Ingredient: %d %s %s]", id, name, type);
     }
 }

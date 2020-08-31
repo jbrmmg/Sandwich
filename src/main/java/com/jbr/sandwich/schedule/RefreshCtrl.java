@@ -8,9 +8,11 @@ import com.jbr.sandwich.dataaccess.UserDayRepository;
 import com.jbr.sandwich.dataaccess.UserRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
+import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -24,6 +26,7 @@ public class RefreshCtrl {
     private final UserRepository userRepository;
     private final UserDayRepository userDayRepository;
 
+    @Autowired
     public RefreshCtrl(ApplicationProperties applicationProperties,
                        UserRepository userRepository,
                        UserDayRepository userDayRepository) {
@@ -137,6 +140,7 @@ public class RefreshCtrl {
     }
 
     @Scheduled(cron = "#{@applicationProperties.schedule}")
+    @Transactional
     public void scheduleRefresh() {
         LOG.info("Refresh sandwichs");
 

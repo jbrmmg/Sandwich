@@ -69,25 +69,29 @@ public class SandwichController {
         refreshCtrl.scheduleRefresh();
     }
 
+    private void addIngredient(Ingredient ingredient, List<dtoIngredient> ingredients) {
+        for(dtoIngredient nextResultIngredient: ingredients) {
+            if(nextResultIngredient.getId().equals(ingredient.getId())) {
+                nextResultIngredient.incrementCount();
+                return;
+            }
+        }
+
+        dtoIngredient newResult = new dtoIngredient();
+        newResult.setCount(1);
+        newResult.setId(ingredient.getId());
+        newResult.setName(ingredient.getName());
+
+        ingredients.add(newResult);
+    }
+
     private void checkIngredients(UserDay userDay, List<dtoIngredient> ingredients) {
         if(userDay.getLocked()) {
             return;
         }
 
         for(Ingredient nextIngredient: userDay.getSandwich()) {
-            for(dtoIngredient nextResultIngredient: ingredients) {
-                if(nextResultIngredient.getId().equals(nextIngredient.getId())) {
-                    nextResultIngredient.incrementCount();
-                    return;
-                }
-            }
-
-            dtoIngredient newResult = new dtoIngredient();
-            newResult.setCount(1);
-            newResult.setId(nextIngredient.getId());
-            newResult.setName(nextIngredient.getName());
-
-            ingredients.add(newResult);
+            addIngredient(nextIngredient, ingredients);
         }
     }
 

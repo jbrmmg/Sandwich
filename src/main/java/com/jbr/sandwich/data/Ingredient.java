@@ -1,6 +1,6 @@
 package com.jbr.sandwich.data;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 
 @SuppressWarnings({"JpaDataSourceORMInspection"})
 @Entity
